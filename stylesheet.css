@@ -34,7 +34,6 @@ body {
     background-color: #eef6fc;
     box-sizing: inherit;
     text-align: right;
-    margin-bottom: 5px;
 }
 
 .header .title {
@@ -48,6 +47,19 @@ body {
 
 i  {
     margin: 0 3px;
+}
+
+.content {
+    padding: 10px;
+}
+
+.content hr {
+    margin: 10px 0;
+    background-color: #534f4f;
+    border: 0 none;
+    color: #534f4f;
+    height: 2px;
+    
 }
 
 .header .erase {
@@ -84,4 +96,15 @@ i  {
 
 .button:focus:not(:active) {
     box-shadow: 0 0 0 0.125em rgb(50 152 220 / 25%) !important;
+}
+
+.content-header .new-group {
+    background-color: #238cd1;
+    color: #fff;
+    display: flex;
+    width: 100%;
+    border-radius: 2px;
+    font-weight: 700 !important;
+    border-color: transparent;
+    text-transform: uppercase;
 }
