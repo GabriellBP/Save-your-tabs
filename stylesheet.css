@@ -88,14 +88,18 @@ i  {
     vertical-align: top;
 }
 
-.button:focus {
+.button:hover {
+    box-shadow: 0 0 0 0.125em rgb(50 152 220 / 25%);
+}
+
+.button:active {
     border-color: transparent !important;
-    color: #fff;
+    box-shadow: 0 0 0 0.125em rgb(50 152 220 / 75%);
     outline: none;
 }
 
-.button:focus:not(:active) {
-    box-shadow: 0 0 0 0.125em rgb(50 152 220 / 25%) !important;
+.button:not(:active) {
+    outline: none;
 }
 
 .content-header .new-group {
@@ -120,19 +124,20 @@ i  {
 
 .content-body .group {
     overflow: hidden;
-    position: absolute;
     left: 0;
     height: 38px;
-    width: 100%;
     padding: 0 5px;
     top: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
+    border-bottom: 1px solid #ddd;
 }
 
-.content-body .group:not(:first-child) {
-    border-top: 1px solid #ddd;
+.content-body .group:hover {
+    background-color: #f9f9fb;
+    cursor: default;
+
 }
 
 .group .group-name {
@@ -141,4 +146,28 @@ i  {
     white-space: nowrap;
     vertical-align: middle;
     font-weight: 500;
+}
+
+.group .only-icon {
+    background-color: transparent;
+}
+
+.group .only-icon:hover {
+    background-color: #ececf0;
+    box-shadow: none;
+}
+
+.group .only-icon:active {
+    background-color: #dbdbdc !important;
+}
+
+.content-footer {
+    text-align: center !important;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #4a4a4a;
+}
+
+.content-footer small {
+    font-size: 0.75em;
 }
