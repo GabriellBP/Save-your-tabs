@@ -288,7 +288,7 @@ input {
     margin-right: 8px;
 }
 
-.window-detail {
+.tab-detail {
     flex: 1 1 0;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -296,7 +296,7 @@ input {
     flex-direction: column;
 }
 
-.window-detail a {
+.tab-detail a {
     color: #007bff;
     text-decoration: none;
     background-color: transparent;
@@ -305,14 +305,38 @@ input {
     white-space: nowrap;
 }
 
-.window-detail a:hover{
+.tab-detail a:hover{
     color: #0056b3;
     text-decoration: underline
 }
 
 
-.window-detail small {
+.tab-detail small {
     color: #6c757d!important;
     font-size: 70%;
     font-weight: 400;
+}
+
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.active, .collapsible:hover {
+    background-color: #555;
+}
+
+.window {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
 }
