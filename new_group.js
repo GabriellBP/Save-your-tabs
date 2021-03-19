@@ -54,14 +54,16 @@ function constructCollapsibleButton(name) {
 
     // adding collapsible behaviour
     collapsibleButton.addEventListener("click", function (e) {
-        this.classList.toggle("active");
-        let content = this.nextElementSibling;
-        if (content.style.maxHeight) {
-            content.style.maxHeight = null;
-        } else {
-            content.style.maxHeight = content.scrollHeight + "px";
+        if(this === e.target) {
+            this.classList.toggle("active");
+            let content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
         }
-    }, false);
+    });
 
     // creating checkbox
     let checkbox = document.createElement("input");
@@ -123,8 +125,6 @@ function constructTabList(tab, windowId) {
     return tabHtml;
 }
 
-// todo: fix checkbox inside button issue
-// todo: behaviour of checkbox
 // todo: create Group behaviour
 // todo: layout of collapsibles
 // todo: testar as permissões no manifest.json
