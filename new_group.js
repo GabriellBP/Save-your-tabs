@@ -1,6 +1,8 @@
 // references to html elements
 let contentBody = document.getElementsByClassName("content-body")[0];
+let newGroupButton = document.getElementById("new-group");
 
+// show all tabs and windows
 chrome.windows.getAll({populate:true}, windows => {
     for (let x = 0; x < windows.length; x++) {
         // if (x > 0) return;
@@ -88,7 +90,8 @@ function constructTabList(tab, windowId) {
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.name = "tabCheckbox_" + windowId;
-    checkbox.id = name.replace(/ /g, '');
+    checkbox.value = tab.url;
+    checkbox.classList.add("tab-checkbox");
 
     // creating favicon
     let favicon = document.createElement("img");
@@ -124,6 +127,37 @@ function constructTabList(tab, windowId) {
 
     return tabHtml;
 }
+
+function createNewGroup() {
+    let group = {}
+    let groupName = document.getElementsByName("newGroup")[0].value;
+    if (groupName.length < 5) {
+        alert('The group name must be at least 5 characters!');
+        return;
+    }
+    group['name'] = groupName;
+    group['tabs'] = []
+    let checkedValue = document.querySelectorAll('.tab-checkbox:checked');
+    if (checkedValue === null || checkedValue.length === 0) {
+        alert('At least one tab must be selected');
+        return;
+    }
+
+    for (let i = 0; i < checkedValue.length; i++) {
+        group['tabs'].push(checkedValue[i].value);
+    }
+
+    chrome.storage.local.get({groups: []}, data => {
+        // if (data.groups.length > groups.length) alert('something is wrong!'); // todo: treat this inconsistence case!
+
+        data.groups.push(group);
+        console.log(JSON.stringify(data, null, '  '));
+        chrome.storage.local.set(data, function () { });
+    });
+}
+
+// configure buttons event listener
+newGroupButton.addEventListener("click", createNewGroup);
 
 // todo: create Group behaviour
 // todo: layout of collapsibles
