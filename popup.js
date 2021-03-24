@@ -1,6 +1,10 @@
-/* configure buttons event listener */
+// references to html elements
+let contentBody = document.getElementsByClassName("content-body")[0];
 let newGroupButton = document.getElementById("new-group");
-newGroupButton.addEventListener("click", createGroup);
+let removeAllButton = document.getElementById("erase-button");
+
+// define global groups variable
+let groups = [];
 
 
 function openNewGroupModal() {
@@ -14,7 +18,9 @@ function openNewGroupModal() {
     })
 }
 
-function constructGroup() {
+
+/* construct the group html */
+function constructGroup(name) {
     /* creating group */
     let newGroup = document.createElement("div");
     newGroup.classList.add("group");
@@ -61,9 +67,14 @@ function deleteGroup() {
 
 }
 
-function deleteAll() {
-
+function removeAll() {
+    let ans = confirm('Do you really want to delete all groups?');
+    if (ans === true) {
+        chrome.storage.local.clear(() => {
+        }); // todo: treat unsuccessful and successful behavior
+    }
 }
 
 // configure buttons event listener
 newGroupButton.addEventListener("click", openNewGroupModal);
+removeAllButton.addEventListener("click", removeAll)
