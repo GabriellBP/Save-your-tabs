@@ -3,7 +3,16 @@ let newGroupButton = document.getElementById("new-group");
 newGroupButton.addEventListener("click", createGroup);
 
 
-let contentBody = document.getElementsByClassName("content-body")[0];
+function openNewGroupModal() {
+    chrome.windows.create({
+        focused: true,
+        type: "popup",
+        url: "new_group.html",
+        // left: screen.width/2,
+        height: 600,
+        width: 600
+    })
+}
 
 function constructGroup() {
     /* creating group */
@@ -56,3 +65,5 @@ function deleteAll() {
 
 }
 
+// configure buttons event listener
+newGroupButton.addEventListener("click", openNewGroupModal);
