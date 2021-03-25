@@ -1,11 +1,25 @@
 // references to html elements
-let contentBody = document.getElementsByClassName("content-body")[0];
 let newGroupButton = document.getElementById("new-group");
 let removeAllButton = document.getElementById("erase-button");
+let contentBody = document.getElementsByClassName("content-body")[0];
 
-// define global groups variable
-let groups = [];
 
+function updateGroupList() {
+    contentBody.textContent = '';
+
+    // get existing groups
+    chrome.storage.local.get({groups: []}, data => {
+        for (let i = 0; i < data.groups.length; i++) {
+            let groupName = data.groups[i].name;
+            console.log(groupName);
+            const newGroup = constructGroup(groupName);
+            console.log(newGroup);
+            contentBody.appendChild(newGroup);
+
+            // alert(JSON.stringify(groups[i], null, '  '));
+        }
+    })
+}
 
 function openNewGroupModal() {
     chrome.windows.create({
@@ -29,7 +43,7 @@ function constructGroup(name) {
     // adding group name
     let groupName = document.createElement("p");
     groupName.classList.add("group-name");
-    groupName.innerHTML += "Group 3";
+    groupName.innerHTML += name;
     // preparing restore and delete icons
     const restoreIcon = document.createElement("i");
     restoreIcon.classList.add("fas", "fa-external-link-alt");
@@ -40,19 +54,20 @@ function constructGroup(name) {
     groupRestoreButton.classList.add("only-icon", "button");
     groupRestoreButton.appendChild(restoreIcon);
     groupRestoreButton.setAttribute("title", "Restore group");
-    groupRestoreButton.addEventListener("click", restoreGroup())
+    // groupRestoreButton.addEventListener("click", restoreGroup(groups.length))
+    groupRestoreButton.addEventListener("click", restoreGroup(name))
     let groupDeleteButton = document.createElement("button");
     groupDeleteButton.classList.add("only-icon", "button");
     groupDeleteButton.appendChild(deleteIcon);
     groupDeleteButton.setAttribute("title", "Delete group");
-    groupDeleteButton.addEventListener("click", deleteGroup())
+    // groupDeleteButton.addEventListener("click", deleteGroup(groups.length))
+    groupDeleteButton.addEventListener("click", deleteGroup(name))
     // adding group elements to new group
     newGroup.appendChild(groupName);
     newGroup.appendChild(groupRestoreButton);
     newGroup.appendChild(groupDeleteButton);
 
-    /* adding new group to content body */
-    contentBody.appendChild(newGroup);
+    return newGroup;
 }
 
 function createGroup() {
@@ -78,3 +93,9 @@ function removeAll() {
 // configure buttons event listener
 newGroupButton.addEventListener("click", openNewGroupModal);
 removeAllButton.addEventListener("click", removeAll)
+
+// event to update popup screen
+chrome.storage.onChanged.addListener(updateGroupList)
+
+// start
+updateGroupList()
