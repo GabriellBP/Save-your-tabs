@@ -30,7 +30,6 @@ function openNewGroupModal() {
     });
 }
 
-
 // construct the group html
 function constructGroup(group) {
     // creating group
@@ -81,7 +80,13 @@ function restoreGroup(group) {
 }
 
 function deleteGroup(group) {
-    alert(group.name);
+    let ans = confirm('Do you really want to delete the group ' + group.name);
+    if (ans === true) {
+        chrome.storage.local.get({groups: []}, data => {
+            data.groups = data.groups.filter(obj => obj.id !== group.id);
+            chrome.storage.local.set(data, function () { });
+        });
+    }
 }
 
 function removeAll() {
