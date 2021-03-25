@@ -13,7 +13,6 @@ function updateGroupList() {
         for (let i = 0; i < data.groups.length; i++) {
             let group = data.groups[i];
             const newGroup = constructGroup(group);
-            console.log(data.groups[i]);
             contentBody.appendChild(newGroup);
             // alert(JSON.stringify(groups[i], null, '  '));
         }
