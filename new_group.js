@@ -151,8 +151,10 @@ function createNewGroup() {
         // if (data.groups.length > groups.length) alert('something is wrong!'); // todo: treat this inconsistence case!
 
         data.groups.push(group);
-        console.log(JSON.stringify(data, null, '  '));
-        chrome.storage.local.set(data, function () { });
+        // console.log(JSON.stringify(data, null, '  '));
+        chrome.storage.local.set(data, function () {
+            window.close();
+        });
     });
 }
 
