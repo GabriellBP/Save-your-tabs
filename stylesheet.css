@@ -10,8 +10,7 @@ html {
     font-size: 16px;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    min-width: 300px;
-    max-width: 400px;
+    width: 350px;
     overflow-x: hidden;
     overflow-y: scroll;
     text-rendering: optimizeLegibility;
@@ -322,7 +321,6 @@ input {
     color: white;
     cursor: pointer;
     padding: 18px;
-    width: 100%;
     border: none;
     text-align: left;
     outline: none;

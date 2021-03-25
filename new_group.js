@@ -149,7 +149,7 @@ function createNewGroup() {
 
     chrome.storage.local.get({groups: []}, data => {
         // if (data.groups.length > groups.length) alert('something is wrong!'); // todo: treat this inconsistence case!
-        group['id'] = data.groups.length;
+        group['id'] = (new Date()).valueOf().toString();  // current timestamp to group id
         data.groups.push(group);
         // console.log(JSON.stringify(data, null, '  '));
         chrome.storage.local.set(data, function () {
@@ -160,7 +160,3 @@ function createNewGroup() {
 
 // configure buttons event listener
 newGroupButton.addEventListener("click", createNewGroup);
-
-// todo: create Group behaviour
-// todo: layout of collapsibles
-// todo: testar as permissões no manifest.json
